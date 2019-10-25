@@ -37,4 +37,42 @@ LIMIT 2
 返回$now表示时刻的day部分，带z前缀的表示会前补0  
 $now 假设为2018-07-03 21:14:36  
 $now.day 的结果：3；  
-$now.zday 的结果：03
+$now.zday 的结果：03  
+
+**5. 窗口函数与分析函数**  
+*Hive窗口函数*  
++ FIRST_VALUE：取分组内排序后，截止到当前行，第一个值 
++ LAST_VALUE： 取分组内排序后，截止到当前行，最后一个值 
++ LEAD(col,n,DEFAULT) ：用于统计窗口内往下第n行值。第一个参数为列名，第二个参数为往下第n行（可选，默认为1），第三个参数为默认值（当往下第n行为NULL时候，取默认值，如不指定，则为NULL） 
++ LAG(col,n,DEFAULT) ：与lead相反，用于统计窗口内往上第n行值。第一个参数为列名，第二个参数为往上第n行（可选，默认为1），第三个参数为默认值（当往上第n行为NULL时候，取默认值，如不指定，则为NULL）  
+
+
+*OVER从句*  
++ 使用标准的聚合函数COUNT、SUM、MIN、MAX、AVG 
++ 使用PARTITION BY语句，使用一个或者多个原始数据类型的列 
++ 使用PARTITION BY与ORDER BY语句，使用一个或者多个数据类型的分区或者排序列 
++ 使用窗口规范，窗口规范支持以下格式：   
+  + (ROWS | RANGE) BETWEEN (UNBOUNDED | [num]) PRECEDING AND ([num] PRECEDING | CURRENT ROW | (UNBOUNDED | [num]) FOLLOWING)
+  + (ROWS | RANGE) BETWEEN CURRENT ROW AND (CURRENT ROW | (UNBOUNDED | [num]) FOLLOWING)
+  + (ROWS | RANGE) BETWEEN [num] FOLLOWING AND (UNBOUNDED | [num]) FOLLOWING
+
+当ORDER BY后面缺少窗口从句条件，窗口规范默认是 RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW.  
+当ORDER BY和窗口从句都缺失, 窗口规范默认是 ROW BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING.  
+
+
+**Hive数据类型**  
+
+|数据类型| 字节数|最小值|最大值|示例|  
+|-------|------|----|---|---:|
+|tinyint|1字节|-128|127|45Y|  
+|smallint|2字节|-32768|32767|100S|
+|int|4字节|-2,147,483,648|2,147,483,647|36|
+|bigint|8字节|-9,223,372,036,854,775,808|9,223,372,036,854,775,807|2000L|
+
+默认情况下，整数常量被当做INT处理，除非整数常量超出了INT类型的取值范围或者在整数常量跟着Y、S、L等后缀，则常量将会作为TINYINT、SMALLINT和BIGINT处理。Hive中的浮点数常量默认被当做DOUBLE类型。
+
+Hive-0.11.0和Hive-0.12.0固定了DECIMAL类型的精度并限制为38位数字，
+从Hive-0.13.0开始可以指定DECIMAL的规模和精度，当使用DECIMAL类型创建表时可以使用DECIMAL(precision, scale)语法。
+DECIMAL默认为DECIMAL(10,0)。 
+DECIMAL类型比DOUBLE类型为浮点数提供了精确的数值和更广的范围，DECIMAL类型存储了数值的精确地表示，而DOUBLE类型存储了非常接近数值的近似值。
+当DOUBLE类型的近似值精度不够时可以使用DECIMAL类型，比如金融应用，等于和不等于检查以及舍入操作，当数值超出了DOUBLE类型的范围（< -10^308 or > 10^308）或者非常接近于0（-10^-308 < ... < 10^-308）时，也可以使用DECIMAL类型。
