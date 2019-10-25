@@ -1,4 +1,4 @@
-**0. 从SQL到HiveQL应改变的几个习惯:**  
+**0. 从SQL到HiveQL应改变的几个习惯:**
 + *IN:*  
 SQL中可以使用IN操作符来规定多个值：  
 SELECT * FROM Persons WHERE LastName IN ('Adams','Carter');  
@@ -32,3 +32,9 @@ UNION ALL
 (SELECT bid,title FROM blog)  
 LIMIT 2  
 可见，LIMIT 与 ORDER BY 经常搭配使用，二者在 UNION 中的使用方式也是一致的。
+
+**4. day,zday:**  
+返回$now表示时刻的day部分，带z前缀的表示会前补0  
+$now 假设为2018-07-03 21:14:36  
+$now.day 的结果：3；  
+$now.zday 的结果：03
