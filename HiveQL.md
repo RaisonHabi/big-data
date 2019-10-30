@@ -45,6 +45,7 @@ $now.zday 的结果：03
 + LAST_VALUE： 取分组内排序后，截止到当前行，最后一个值 
 + LEAD(col,n,DEFAULT) ：用于统计窗口内往下第n行值。第一个参数为列名，第二个参数为往下第n行（可选，默认为1），第三个参数为默认值（当往下第n行为NULL时候，取默认值，如不指定，则为NULL） 
 + LAG(col,n,DEFAULT) ：与lead相反，用于统计窗口内往上第n行值。第一个参数为列名，第二个参数为往上第n行（可选，默认为1），第三个参数为默认值（当往上第n行为NULL时候，取默认值，如不指定，则为NULL）  
+示例：LAG( shorten_url IGNORE NULLS ) OVER ( PARTITION BY hit_day, session_id ORDER BY click_id )  
 
 
 *OVER从句*  
