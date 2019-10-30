@@ -60,6 +60,18 @@ $now.zday 的结果：03
 当ORDER BY后面缺少窗口从句条件，窗口规范默认是 RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW.  
 当ORDER BY和窗口从句都缺失, 窗口规范默认是 ROW BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING.  
 
+**6.hive join on where**  
+*on从句一般只包含简单的join字段，比较大小等筛选条件放在where从句中*   
+示例：  
+select   
+        A.id,A.name,A.grade,A.dept,B.id,B.name   
+from  
+      A left outer join B  
+on  
+      A.dept = B.id  
+where  
+      A.grade >=80  
+    
 
 **Hive数据类型**  
 
