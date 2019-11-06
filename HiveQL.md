@@ -11,7 +11,7 @@ SELECT a.col, b.col FROM t1 a, t2 b WHERE a.id=b.id;
 SELECT a.col, b.col FROM t1 a JOIN t2 b ON a.id=b.id;  
 
 
-**1. ROW_NUMBER() OVER(*PARTITION BY COLUMN ORDER BY COLUMN*)**  
+**1. ROW_NUMBER() OVER(*PARTITION BY COLUMN ORDER BY COLUMN*):**  
 简单的说row_number()从1开始，为每一条分组记录返回一个数字
 
 **2. like与rlike的区别：**  
@@ -19,7 +19,7 @@ like不是正则，而是通配符。这个通配符可以看一下SQL的标准�
 rlike是正则，正则的写法与java一样。'\'需要使用'\\',例如'\w'需要使用'\\w’  
 A RLIKE B ，表示B是否在A里面。而A LIKE B,则表示B是否是A  
 
-**3. union all**  
+**3. union all:**  
 + mysql中union用于合并两个或多个 SELECT 语句的结果集，LIMIT 用于对结果集进行分页显示。  
 在 MySQL UNION 中使用 LIMIT 用于限制返回的记录条数，如果对 SELECT 子句做限制，需要对 SELECT 添加圆括号：  
 (SELECT aid,title FROM article LIMIT 2)   
@@ -39,7 +39,7 @@ $now 假设为2018-07-03 21:14:36
 $now.day 的结果：3；  
 $now.zday 的结果：03  
 
-**5. 窗口函数与分析函数**  
+**5. 窗口函数与分析函数:**  
 *Hive窗口函数*  
 + FIRST_VALUE：取分组内排序后，截止到当前行，第一个值 
 + LAST_VALUE： 取分组内排序后，截止到当前行，最后一个值 
@@ -71,9 +71,43 @@ on
       A.dept = B.id  
 where  
       A.grade >=80  
-    
+ 
 
-**Hive数据类型**  
+**Hive中排序和聚集:**  
+[Hive中排序和聚集](https://www.cnblogs.com/skyl/p/4736477.html)  
+//五种子句是有严格顺序的：  
+where → group by → having → order by → limit  
+//where和having的区别:  
+//where是先过滤再分组(对原始数据过滤),where限定聚合函数  
+hive> select count(*),age from tea where id>18 group by age;  
+//having是先分组再过滤(对每个组进行过滤,having后只能跟select中已有的列)  
+hive> select age,count(*) c from tea group by age having c>2;  
+//group by后面没有的列,select后面也绝不能有(聚合函数除外)  
+hive> select ip,sum(load) as c from logs  group by ip sort by c desc limit 5;  
+//distinct关键字返回唯一不同的值(返回age和id均不相同的记录)  
+hive> select distinct age,id from tea;  
+//hive只支持Union All,不支持Union  
+//hive的Union All相对sql有所不同,要求列的数量相同,并且对应的列名也相同,但不要求类的类型相同(可能是存在隐式转换吧)  
+select name,age from tea where id<80  
+union all  
+select name,age from stu where age>18;  
+***Order By特性：***  
+对数据进行全局排序，只有一个reducer task，效率低下;  
+与mysql中 order by区别在于：在 strict 模式下，必须指定 limit，否则执行会报错;  
+对于分区表，还必须显示指定分区字段查询.  
+***Sort BY特性：***  
+可以有多个Reduce Task（以DISTRIBUTE BY后字段的个数为准）。也可以手工指定：set mapred.reduce.tasks=4;  
+每个Reduce Task 内部数据有序，但全局无序 .  
+***Distribute by特性：***  
+按照指定的字段对数据进行划分到不同的输出 reduce 文件中;  
+distribute by相当于MR 中的paritioner，默认是基于hash 实现的;  
+distribute by通常与Sort by连用.  
+***Cluster By特性：***  
+如果 Sort By 和 Distribute By 中所有的列相同，可以缩写为Cluster By以便同时指定两者所使用的列;  
+注意被cluster by指定的列只能是降序，不能指定asc和desc。一般用于桶表.  
+
+
+**Hive数据类型:**  
 
 |数据类型| 字节数|最小值|最大值|示例|  
 |-------|------|----|---|---:|
