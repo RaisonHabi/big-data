@@ -12,7 +12,18 @@ SELECT a.col, b.col FROM t1 a JOIN t2 b ON a.id=b.id;
 
 
 **1. ROW_NUMBER() OVER(*PARTITION BY COLUMN ORDER BY COLUMN*):**  
-简单的说row_number()从1开始，为每一条分组记录返回一个数字
+简单的说row_number()从1开始，为每一条分组记录返回一个数字  
+***example:***  
+SELECT department_id, first_name, last_name, salary  
+FROM  
+(  
+  SELECT  
+    department_id, first_name, last_name, salary,  
+    *ROW_NUMBER() OVER (PARTITION BY department_id ORDER BY salary desc) rn*  
+  FROM employees  
+)  
+WHERE rn <= 3  
+ORDER BY department_id, salary DESC, last_name;  
 
 **2. like与rlike的区别：**  
 like不是正则，而是通配符。这个通配符可以看一下SQL的标准，例如%代表任意多个字符。  
