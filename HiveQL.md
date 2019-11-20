@@ -129,8 +129,19 @@ distribute by通常与Sort by连用.
 
 默认情况下，整数常量被当做INT处理，除非整数常量超出了INT类型的取值范围或者在整数常量跟着Y、S、L等后缀，则常量将会作为TINYINT、SMALLINT和BIGINT处理。Hive中的浮点数常量默认被当做DOUBLE类型。
 
-Hive-0.11.0和Hive-0.12.0固定了DECIMAL类型的精度并限制为38位数字，
-从Hive-0.13.0开始可以指定DECIMAL的规模和精度，当使用DECIMAL类型创建表时可以使用DECIMAL(precision, scale)语法。
-DECIMAL默认为DECIMAL(10,0)。 
-DECIMAL类型比DOUBLE类型为浮点数提供了精确的数值和更广的范围，DECIMAL类型存储了数值的精确地表示，而DOUBLE类型存储了非常接近数值的近似值。
-当DOUBLE类型的近似值精度不够时可以使用DECIMAL类型，比如金融应用，等于和不等于检查以及舍入操作，当数值超出了DOUBLE类型的范围（< -10^308 or > 10^308）或者非常接近于0（-10^-308 < ... < 10^-308）时，也可以使用DECIMAL类型。
+Hive-0.11.0和Hive-0.12.0固定了DECIMAL类型的精度并限制为38位数字，从Hive-0.13.0开始可以指定DECIMAL的规模和精度。  
+当使用DECIMAL类型创建表时可以使用DECIMAL(precision, scale)语法。DECIMAL默认为DECIMAL(10,0)。  
+DECIMAL类型比DOUBLE类型为浮点数提供了精确的数值和更广的范围，DECIMAL类型存储了数值的精确地表示，而DOUBLE类型存储了非常接近数值的近似值。  
+
+***decimal不存在精度损失，数据类型decimal(p,s) 需要分别指定小数的最大位数（p）和小数位的数量（s）：***  
+> p (precision) ：指定小数的最大位数，小数点的左侧和右侧的数字的总数量不能超过p，p的取值范围是从1到38，默认值为18。  
+s (scale)：指定在小数点右侧的小数位数，p-s是小数点左边的最大位数。s必须是从0到p的值，只有在指定了精度的情况下才能指定s，s的默认值是0，因此，0 <= s <= p。
+
+示例：  
+> from decimal import *  
+getcontext().prec = 6  
+Decimal(1) / Decimal(7)  
+Decimal('0.142857')  
+getcontext().prec = 28  
+Decimal(1) / Decimal(7)  
+Decimal('0.1428571428571428571428571429')
