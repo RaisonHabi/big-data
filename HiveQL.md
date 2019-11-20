@@ -1,4 +1,4 @@
-**0. 从SQL到HiveQL应改变的几个习惯:**
+## 0. 从SQL到HiveQL应改变的几个习惯:  
 + *IN:*  
 SQL中可以使用IN操作符来规定多个值：  
 SELECT * FROM Persons WHERE LastName IN ('Adams','Carter');  
@@ -11,7 +11,7 @@ SELECT a.col, b.col FROM t1 a, t2 b WHERE a.id=b.id;
 SELECT a.col, b.col FROM t1 a JOIN t2 b ON a.id=b.id;  
 
 
-**1. ROW_NUMBER() OVER(*PARTITION BY COLUMN ORDER BY COLUMN*):**  
+## 1. ROW_NUMBER() OVER(*PARTITION BY COLUMN ORDER BY COLUMN*): 
 简单的说row_number()从1开始，为每一条分组记录返回一个数字  
 ***example:***  
 SELECT department_id, first_name, last_name, salary  
@@ -25,12 +25,12 @@ FROM
 WHERE rn <= 3  
 ORDER BY department_id, salary DESC, last_name;  
 
-**2. like与rlike的区别：**  
+## 2. like与rlike的区别： 
 like不是正则，而是通配符。这个通配符可以看一下SQL的标准，例如%代表任意多个字符。  
 rlike是正则，正则的写法与java一样。'\'需要使用'\\',例如'\w'需要使用'\\w’  
 A RLIKE B ，表示B是否在A里面。而A LIKE B,则表示B是否是A  
 
-**3. union all:**  
+## 3. union all: 
 + mysql中union用于合并两个或多个 SELECT 语句的结果集，LIMIT 用于对结果集进行分页显示。  
 在 MySQL UNION 中使用 LIMIT 用于限制返回的记录条数，如果对 SELECT 子句做限制，需要对 SELECT 添加圆括号：  
 (SELECT aid,title FROM article LIMIT 2)   
@@ -44,13 +44,13 @@ UNION ALL
 LIMIT 2  
 可见，LIMIT 与 ORDER BY 经常搭配使用，二者在 UNION 中的使用方式也是一致的。
 
-**4. day,zday:**  
+## 4. day,zday: 
 返回$now表示时刻的day部分，带z前缀的表示会前补0  
 $now 假设为2018-07-03 21:14:36  
 $now.day 的结果：3；  
 $now.zday 的结果：03  
 
-**5. 窗口函数与分析函数:**  
+## 5. 窗口函数与分析函数:
 *Hive窗口函数*  
 + FIRST_VALUE：取分组内排序后，截止到当前行，第一个值 
 + LAST_VALUE： 取分组内排序后，截止到当前行，最后一个值 
@@ -71,7 +71,7 @@ $now.zday 的结果：03
 当ORDER BY后面缺少窗口从句条件，窗口规范默认是 RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW.  
 当ORDER BY和窗口从句都缺失, 窗口规范默认是 ROW BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING.  
 
-**6.hive join on where**  
+## 6.hive join on where 
 *on从句一般只包含简单的join字段，比较大小等筛选条件放在where从句中*   
 示例：  
 select   
@@ -84,7 +84,7 @@ where
       A.grade >=80  
  
 
-**Hive中排序和聚集:**  
+## Hive中排序和聚集:  
 [Hive中排序和聚集](https://www.cnblogs.com/skyl/p/4736477.html)  
 //五种子句是有严格顺序的：  
 where → group by → having → order by → limit  
@@ -118,7 +118,7 @@ distribute by通常与Sort by连用.
 注意被cluster by指定的列只能是降序，不能指定asc和desc。一般用于桶表.  
 
 
-**Hive数据类型:**  
+## Hive数据类型: 
 
 |数据类型| 字节数|最小值|最大值|示例|  
 |-------|------|----|---|---:|
