@@ -32,5 +32,27 @@ hadoop fs -cp /user/hadoop/file1 /user/hadoop/file2 /user/hadoop/dir
 **dus**  
 使用方法：hadoop fs -dus <args>  
 显示文件的大小。
+## get
+使用方法：hadoop fs -get [-ignorecrc] [-crc] <src> <localdst>   
+复制文件到本地文件系统。可用-ignorecrc选项复制CRC校验失败的文件。使用-crc选项复制文件以及CRC信息。  
+示例：  
+> hadoop fs -get /user/hadoop/file localfile  
+hadoop fs -get hdfs://host:port/user/hadoop/file localfile  
+返回值：  
+成功返回0，失败返回-1。  
+
+## getmerge
+使用方法：hadoop fs -getmerge <src> <localdst> [addnl]  
+接受一个源目录和一个目标文件作为输入，并且将源目录中所有的文件连接成本地目标文件。addnl是可选的，用于指定在每个文件结尾添加一个换行符。
+## ls
+使用方法：hadoop fs -ls <args>   
+如果是文件，则按照如下格式返回文件信息：  
+文件名 <副本数> 文件大小 修改日期 修改时间 权限 用户ID 组ID   
+如果是目录，则返回它直接子文件的一个列表，就像在Unix中一样。目录返回列表的信息如下：  
+目录名 <dir> 修改日期 修改时间 权限 用户ID 组ID   
+示例：  
+> hadoop fs -ls /user/hadoop/file1 /user/hadoop/file2 hdfs://host:port/user/hadoop/dir1 /nonexistentfile   
+返回值：  
+成功返回0，失败返回-1。  
 ## reference 
 [adoop Shell命令](https://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html)
