@@ -49,7 +49,7 @@ hadoop fs -get hdfs://host:port/user/hadoop/file localfile
 如果是文件，则按照如下格式返回文件信息：  
 文件名 <副本数> 文件大小 修改日期 修改时间 权限 用户ID 组ID   
 如果是目录，则返回它直接子文件的一个列表，就像在Unix中一样。目录返回列表的信息如下：  
-目录名 <dir> 修改日期 修改时间 权限 用户ID 组ID   
+目录名 \<dir\> 修改日期 修改时间 权限 用户ID 组ID   
 示例：  
 > hadoop fs -ls /user/hadoop/file1 /user/hadoop/file2 hdfs://host:port/user/hadoop/dir1 /nonexistentfile   
 返回值：  
