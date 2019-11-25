@@ -30,10 +30,10 @@ hadoop fs -cp /user/hadoop/file1 /user/hadoop/file2 /user/hadoop/dir
 成功返回0，失败返回-1。   
 
 **dus**  
-使用方法：hadoop fs -dus <args>  
+使用方法：hadoop fs -dus \<args\>  
 显示文件的大小。
 ## get
-使用方法：hadoop fs -get [-ignorecrc] [-crc] <src> <localdst>   
+使用方法：hadoop fs -get [-ignorecrc] [-crc] \<src\> \<localdst\>   
 复制文件到本地文件系统。可用-ignorecrc选项复制CRC校验失败的文件。使用-crc选项复制文件以及CRC信息。  
 示例：  
 > hadoop fs -get /user/hadoop/file localfile  
@@ -42,7 +42,7 @@ hadoop fs -get hdfs://host:port/user/hadoop/file localfile
 成功返回0，失败返回-1。  
 
 ## getmerge
-使用方法：hadoop fs -getmerge <src> <localdst> [addnl]  
+使用方法：hadoop fs -getmerge \<src\> \<localdst\> [addnl]  
 接受一个源目录和一个目标文件作为输入，并且将源目录中所有的文件连接成本地目标文件。addnl是可选的，用于指定在每个文件结尾添加一个换行符。
 ## ls
 使用方法：hadoop fs -ls <args>   
@@ -54,5 +54,43 @@ hadoop fs -get hdfs://host:port/user/hadoop/file localfile
 > hadoop fs -ls /user/hadoop/file1 /user/hadoop/file2 hdfs://host:port/user/hadoop/dir1 /nonexistentfile   
 返回值：  
 成功返回0，失败返回-1。  
+
+## lsr
+使用方法：hadoop fs -lsr \<args\>   
+ls命令的递归版本。类似于Unix中的ls -R。
+## mkdir
+使用方法：hadoop fs -mkdir \<paths\>   
+接受路径指定的uri作为参数，创建这些目录。其行为类似于Unix的mkdir -p，它会创建路径中的各级父目录。  
+示例：  
+> hadoop fs -mkdir /user/hadoop/dir1 /user/hadoop/dir2  
+hadoop fs -mkdir hdfs://host1:port1/user/hadoop/dir hdfs://host2:port2/user/hadoop/dir  
+返回值：  
+成功返回0，失败返回-1。
+## mv
+使用方法：hadoop fs -mv URI [URI …] \<dest\>  
+将文件从源路径移动到目标路径。这个命令允许有多个源路径，此时目标路径必须是一个目录。不允许在不同的文件系统间移动文件。   
+示例：  
+> hadoop fs -mv /user/hadoop/file1 /user/hadoop/file2  
+hadoop fs -mv hdfs://host:port/file1 hdfs://host:port/file2 hdfs://host:port/file3 hdfs://host:port/dir1  
+返回值：  
+成功返回0，失败返回-1。
+## rm
+使用方法：hadoop fs -rm URI [URI …]  
+删除指定的文件。只删除非空目录和文件。请参考rmr命令了解递归删除。  
+示例：  
+> hadoop fs -rm hdfs://host:port/file /user/hadoop/emptydir  
+返回值：  
+成功返回0，失败返回-1。
+
+## rmr
+使用方法：hadoop fs -rmr URI [URI …]  
+delete的递归版本。  
+示例：  
+> hadoop fs -rmr /user/hadoop/dir  
+hadoop fs -rmr hdfs://host:port/user/hadoop/dir  
+返回值：  
+成功返回0，失败返回-1。
+
+
 ## reference 
 [adoop Shell命令](https://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html)
