@@ -18,7 +18,7 @@ key为空，用value 存放实际的值， 这样可以避免map 阶段的排序
 理论上具有高查询效率（但hive官方说效果不明显，只有存储上能省10%的空间，所以不好用，可以不用）。  
 **RCFile结合行存储查询的快速和列存储节省空间的特点**  
 > 1）同一行的数据位于同一节点，因此元组重构的开销很低；  
-  2) 块内列存储，可以进行列维度的数据压缩，跳过不必要的列读取。  
+> 2) 块内列存储，可以进行列维度的数据压缩，跳过不必要的列读取。  
   
 查询过程中，在IO上跳过不关心的列。  
 实际过程是，在map阶段从远端拷贝仍然拷贝整个数据块到本地目录，也并不是真正直接跳过列，而是通过扫描每一个row group的头部定义来实现的。    
@@ -32,5 +32,13 @@ hive给出的新格式，属于RCFILE的升级版。
 
 ## 自定义格式 
 用户的数据文件格式不能被当前 Hive 所识别的，通过实现inputformat和outputformat来自定义输入输出格式
+## 注意
+只有TEXTFILE表能直接加载数据，本地load数据和external外部表直接加载运路径数据，都只能用TEXTFILE表。    
+更深一步，hive默认支持的压缩文件（hadoop默认支持的压缩格式），也只能用TEXTFILE表直接读取,其他格式不行。  
+可以通过TEXTFILE表加载后insert到其他表中。    
+换句话说，SequenceFile、RCFile表不能直接加载数据，数据要先导入到textfile表，再从textfile表通过insert select from 导入到SequenceFile,RCFile表。   
+SequenceFile、RCFile表的源文件不能直接查看，在hive中用select看。  
+RCFile源文件可以用 hive --service rcfilecat /xxxxxxxxxxxxxxxxxxxxxxxxxxx/000000_0查看，但是格式不同，很乱。  
+hive默认支持压缩文件格式参考[hive 压缩全解读](http://blog.csdn.net/longshenlmj/article/details/50550580)
 ## reference 
 [hive表的存储格式; ORC格式的使用](https://blog.csdn.net/longshenlmj/article/details/51702343)
