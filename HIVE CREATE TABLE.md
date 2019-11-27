@@ -24,5 +24,5 @@ LIKE key_value_store;
 创建一个LIKE表的复制，但是不含有数据。
 
 ## reference
-[HIVE CREATE TABLE(一)](https://blog.csdn.net/mhtian2015/article/details/78770176) . 
+[HIVE CREATE TABLE(一)](https://blog.csdn.net/mhtian2015/article/details/78770176)   
 [LanguageManual DDL](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL)
