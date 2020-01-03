@@ -29,8 +29,9 @@ sort by为每个reduce产生一个排序文件。
 **示例：**   
 > From table select year, temperature   
 **distribute by year**    
-***sort by year asc, temperature desc;***     
-上面实现了局部排序，且规定了：根据年份和气温对气象数据进行排序，以**确保所有具有相同年份的行最终都在一个reducer分区中（文件下）**。    
+***sort by year asc, temperature desc;*** 
+
+> 上面实现了局部排序，且规定了：根据年份和气温对气象数据进行排序，以**确保所有具有相同年份的行最终都在一个reducer分区中（文件下）**。    
 可以看出，distribute by经常与sort by一起使用。
 
 ## cluster by
