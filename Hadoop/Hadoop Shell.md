@@ -43,7 +43,18 @@ hadoop fs -get hdfs://host:port/user/hadoop/file localfile
 
 ## getmerge
 使用方法：hadoop fs -getmerge \<src\> \<localdst\> [addnl]  
-接受一个源目录和一个目标文件作为输入，并且将源目录中所有的文件连接成本地目标文件。addnl是可选的，用于指定在每个文件结尾添加一个换行符。
+接受一个源目录和一个目标文件作为输入，并且将源目录中所有的文件连接成本地目标文件。addnl是可选的，用于指定在每个文件结尾添加一个换行符。  
+## getmerge
+Usage: hadoop fs -getmerge [-nl] <src> <localdst>  
+
+Takes a source directory and a destination file as input and concatenates files in src into the destination local file. Optionally -nl can be set to enable adding a newline character (LF) at the end of each file. -skip-empty-file can be used to avoid unwanted newline characters in case of empty files.
+
+Examples:  
+hadoop fs -getmerge -nl /src /opt/output.txt  
+hadoop fs -getmerge -nl /src/file1.txt /src/file2.txt /output.txt  
+
+Exit Code:  
+Returns 0 on success and non-zero on error.
 ## ls
 使用方法：hadoop fs -ls <args>   
 如果是文件，则按照如下格式返回文件信息：  
@@ -93,4 +104,5 @@ hadoop fs -rmr hdfs://host:port/user/hadoop/dir
 
 
 ## reference 
-[adoop Shell命令](https://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html)
+[adoop Shell命令](https://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html)  
+[hadoop.apache.org/docs](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html#getmerge)
