@@ -1,3 +1,8 @@
+## put 强制覆盖文件
+若hdfs上已经存在文件，要强制覆盖，用 -f 命令  
+```
+hdfs dfs -put -f ivr_data_0316.csv viewfs://hadoop-meituan/user/hadoop-finrc/demo/docker
+```
 ## 创建目录
 ```
 hdfs dfs -mkdir /test
@@ -46,4 +51,5 @@ hdfs://dev-cluster  49.2 T  443.7 G     46.3 T    1%
 [apache@namenode01 ~]$ hdfs dfs -cp -R /test/file/h.csv /test
 ```
 ## reference
-[HDFS基本命令](https://blog.csdn.net/sunbocong/article/details/82855506)
+[HDFS基本命令](https://blog.csdn.net/sunbocong/article/details/82855506)  
+[hadoop put 强制覆盖文件](https://blog.csdn.net/u010867294/article/details/72887039)
