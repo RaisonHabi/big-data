@@ -71,6 +71,6 @@ select concat(substr(add_months(from_unixtime(unix_timestamp(),'yyyy-MM-dd'),-1)
 select date_sub(trunc(CURRENT_TIMESTAMP,'MM'),1);  
 ***hive trunc***[hive trunc的一些用法](https://www.cnblogs.com/wenBlog/p/10848208.html)
 
-
-**reference**  
+&nbsp;
+## **reference**  
 [Hive常用日期函数整理](https://blog.csdn.net/u013421629/article/details/80450047)
