@@ -1,16 +1,16 @@
-**1、to_date：日期时间转日期函数**  
+### 1、to_date：日期时间转日期函数 
 示例：  
 select to_date('2015-04-02 13:34:12');  
 输出：2015-04-02  
 
-**2、from_unixtime：转化unix时间戳到当前时区的时间格式**  
+### 2、from_unixtime：转化unix时间戳到当前时区的时间格式 
 示例：  
 select from_unixtime(1323308943);   
 输出：2011-12-08 09:49:03  
 select from_unixtime(1323308943,’yyyyMMdd’);  
 输出：20111208
 
-**3、unix_timestamp：获取当前unix时间戳**  
+### 3、unix_timestamp：获取当前unix时间戳 
 示例：  
 select unix_timestamp();  
 输出：1430816254  
@@ -72,5 +72,5 @@ select date_sub(trunc(CURRENT_TIMESTAMP,'MM'),1);
 ***hive trunc***[hive trunc的一些用法](https://www.cnblogs.com/wenBlog/p/10848208.html)
 
 &nbsp;
-## **reference**  
+## reference
 [Hive常用日期函数整理](https://blog.csdn.net/u013421629/article/details/80450047)
