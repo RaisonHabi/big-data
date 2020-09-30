@@ -28,9 +28,13 @@ order by a.class, a.score desc;
 #### row_number() over()
 ```
 select name,
+      class,
+      score
+from(
+   select name,
        class,
        score,
        row_number() over(partition by class order by score desc) rn
-from table
+   from table)
 where rn<4
 ```
