@@ -1,5 +1,63 @@
 ## 实例
+一个customer对应多条assign、call_record，合并assign为json、call_record为json
 ```
+INSERT OVERWRITE TABLE `${target.table}` 
+select customer_no,
+        collection_bill_id,
+        product_code,
+        create_time,
+        appeal_content,
+        concat("{",concat_ws(",",sort_array(collect_set(assign_kv_pair))),"}") as assign_json, 
+        concat("{",concat_ws(",",sort_array(collect_set(call_kv_pair))),"}") as call_json
+from(
+    SELECT a.customer_no,
+        a.collection_bill_id,
+        a.product_code,
+        a.create_time,
+        a.appeal_content,
+        concat('[\"assignment_time\":',NVL(assignment_time,''),',\"collector_code\":',NVL(b.collector_code,''),']') as assign_kv_pair,
+        concat('[\"start_time\":',NVL(start_time,''),',\"collector_code\":',NVL(c.collector_code,''),',\"content\":',NVL(content,''),']') as call_kv_pair
+    FROM(
+        select customer_no,
+                collection_bill_id,
+                product_code,
+                create_time,
+                complaint_date,
+                appeal_content,
+                date_sub(complaint_date,3)as complaint_date_pre3,
+                date_sub(complaint_date,60)as complaint_date_pre60
+        from table1
+    )a
+    left join(
+        select distinct customer_no,
+                collection_bill_id,
+                assignment_time,
+                collector_code,
+                collector_name,
+                collection_group_code,
+                collection_group_name,
+                collection_queue_type,
+                product_type,
+                partition_date
+        from table2
+    )b on(a.customer_no=b.customer_no and a.collection_bill_id=b.collection_bill_id and a.product_code=b.product_type
+        and b.assignment_time between a.complaint_date_pre60 and a.complaint_date 
+        and b.partition_date between a.complaint_date_pre60 and a.complaint_date)
+    left join(
+        select distinct debtor_no,
+                application_id,
+                product_code,
+                collector_code,
+                start_time,
+                content,
+                partition_date
+        from table3
+    )c on(a.customer_no=c.debtor_no and a.collection_bill_id=c.application_id and a.product_code=c.product_code
+        and c.partition_date between a.complaint_date_pre3 and a.complaint_date
+        and c.start_time between a.complaint_date_pre3 and a.complaint_date)
+##按字段顺序group by    
+)group by 1,2,3,4,5
+;
 
 ```
 
