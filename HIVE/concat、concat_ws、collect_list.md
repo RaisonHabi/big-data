@@ -76,6 +76,7 @@ from(
 If the date field is not string, then convert it to string:***concat_ws(',',collect_set(cast(date as string)))***
 
 &nbsp;
+
 ## collect_list()
 根据某个字段分组后，把分在一组的数据合并在一起，默认分隔符’,’ 
 ## collect_set()
