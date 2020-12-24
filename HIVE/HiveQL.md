@@ -12,6 +12,7 @@ SELECT a.col, b.col FROM t1 a JOIN t2 b ON a.id=b.id;
 
 
 ## 1. ROW_NUMBER() OVER(*PARTITION BY COLUMN ORDER BY COLUMN*): 
+#### （若order by字段有多个一致，则随机返回1234……）
 简单的说row_number()从1开始，为每一条分组记录返回一个数字  
 ***example:***  
 SELECT department_id, first_name, last_name, salary  
