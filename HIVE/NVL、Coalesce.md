@@ -1,4 +1,4 @@
-## NVL
+## 一、NVL
 ### NVL（表达式1，表达式2）
 如果表达式1为空值，NVL返回值为表达式2的值，否则返回表达式1的值。 
 
@@ -13,7 +13,7 @@ nvl(clue_num,0)：如果clue_num为空，则返回0；否则返回clue_num的值
 nvl(sex,0,1):如果sex为空，则返回1；否则返回0
 
 &nbsp;
-## Coalesce
+## 二、Coalesce
 Coalese函数的作用是的NVL的函数有点相似，其优势是有更多的选项。
 
 ### 格式如下：   
@@ -24,7 +24,7 @@ Coalesce(expr1, expr2, expr3….. exprn)
 
 如果所有自变量均为 NULL，则 COALESCE 返回 NULL 值。 　　COALESCE(expression1,...n) 与此 CASE 函数等价：
 
-### 这个函数实际上是NVL的循环使用，在此就不举例子了。
+#### 这个函数实际上是NVL的循环使用，在此就不举例子了。
 
 ## reference
 [hive-NVL、Coalesce、NVL2、NULLIF函数](https://blog.csdn.net/qq_34941023/article/details/51440579)  
