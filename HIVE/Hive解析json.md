@@ -25,5 +25,6 @@ select  get_json_object(data, '$.store.bicycle.price') from test;
 select  get_json_object(data, '$.store.fruit[0]') from test;  
 结果：{"weight":8,"type":"apple"}  
 
+&nbsp;
 ## reference
 [Hive 解析json（get_json_object）](https://blog.csdn.net/qq_34105362/article/details/80454697)
