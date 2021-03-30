@@ -17,4 +17,4 @@ Shuffle 横跨 Map 端和 Reduce 端， 在 Map 端包括 Spill 过程， 在 Re
 ## reference
 [大数据系列之MapReduce的shuffle原理](https://zhuanlan.zhihu.com/p/134350819)  
 [Mapreduce执行过程分析(基于Hadoop2.4)——(一)](https://www.cnblogs.com/scott007/p/3836687.html#top)  
-[]()
+[MapReduce Tutorial](https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html)
