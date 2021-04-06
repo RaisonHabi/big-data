@@ -1,3 +1,10 @@
+### n-1、Hive中有类似Mysql的now()变量吗?
+mysql有一个now()函数可以取到当前的时间，hive中我们可以使用 unix_timestamp() 函数来替代。
+
+比如 from_unixtime(unix_timestamp()) 即可取到当前时间了，当前日期用to_date(from_unixtime(unix_timestamp())) 
+
+[SQL进阶--hive中的时间函数](https://zhuanlan.zhihu.com/p/41184303)
+
 ### 1、to_date：日期时间转日期函数 
 示例：  
 select to_date('2015-04-02 13:34:12');  
