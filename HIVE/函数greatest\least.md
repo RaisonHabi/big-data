@@ -6,5 +6,13 @@ select greatest(-1, 0, 5, 8)
 ```
 
 &nbsp;
+## least
+```
+select least(-1, 0, 5, 8)
+#  -1
+```
+
+&nbsp;
 ## References
-[Hive 列比较函数greatest](https://www.jianshu.com/p/0a3ed303ef47)
+[Hive 列比较函数greatest](https://www.jianshu.com/p/0a3ed303ef47)  
+[hive：函数：greatest和least函数](https://blog.csdn.net/weixin_38750084/article/details/97788821)
