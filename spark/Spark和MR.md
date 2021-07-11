@@ -38,6 +38,6 @@ sparkstreaming模块、图计算GraphX等等；mapreduce只提供了map和reduce
 相对较为简单，对性能的要求也相对较弱，但是运行较为稳定，适合长期后台运行。
 
 &nbsp;
-## reference
+## References
 [Spark独到见解--1、什么是Spark？及和MR的区别](https://blog.csdn.net/sun_duoLong/article/details/78502243)  
 [Spark与Hadoop MR的异同](https://blog.csdn.net/zx8167107/article/details/79086864?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase)
