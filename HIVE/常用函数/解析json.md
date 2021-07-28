@@ -36,5 +36,5 @@ hive> select  get_json_object(data, '$.store.fruit[0]') from test;
 ```
 
 &nbsp;
-## reference
+## References
 [Hive解析json（get_json_object）](https://blog.csdn.net/qq_34105362/article/details/80454697)
