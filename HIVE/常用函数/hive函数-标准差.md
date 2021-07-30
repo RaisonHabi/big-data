@@ -21,5 +21,5 @@ s^2 = [(x1-m)^2 + (x2-m)^2 + ... (xn-m)^2]/**(n-1)**
 而只是需要得到少量数据 标准差 方差 的近似值 可以选用： stddev_samp var_samp
 
 &nbsp;
-## reference
+## References
 [hive函数 -- stddev , stddev_pop , stddev_samp , var_pop , var_samp](https://blog.csdn.net/lxpbs8851/article/details/39317611)
