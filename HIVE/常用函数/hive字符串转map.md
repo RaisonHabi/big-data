@@ -13,5 +13,5 @@ select str_to_map('1:11&2:22', '&', ':')['1']
 ```
 
 &nbsp;
-## reference
+## References
 [str_to_map hive 字符串转为map格式](https://blog.csdn.net/yuanyangsdo/article/details/64441165)
