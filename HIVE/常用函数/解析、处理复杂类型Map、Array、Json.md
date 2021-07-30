@@ -35,5 +35,5 @@ lateral view explode(imap) tb as ikey,ivalue;
 &nbsp;
 ## Array操作
 ## Json的操作
-## reference
+## References
 [hive解析、处理复杂类型Map、Array、Json](https://www.jianshu.com/p/ef74c63c50f2)
