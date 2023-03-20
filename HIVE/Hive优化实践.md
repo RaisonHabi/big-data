@@ -15,5 +15,6 @@ hive.auto.convert.join默认值为true，
 通过配置该属性来确定使用该优化的表的大小，如果表的大小小于此值就会被加载进内存中
 
 &nbsp;
-## references
+## references  
+[Hive Map Join 原理](https://cloud.tencent.com/developer/article/1481780)  
 [Hive优化实践（十四）](https://juejin.cn/post/7084020528062677023)
