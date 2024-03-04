@@ -3,12 +3,18 @@
 这里的UDTF函数是指用户自定义的表生成函数（英文全称：user defined table-generating functions），它可以接受一行输入然后产生0行或多行输出。  
 lateral view 首先将utdf函数应用到每一行上，这时每一行经utdf处理后得到多行输出，这些输出将会组建成一张虚拟表，然后这张虚拟表会跟当前表进行join操作，join完成之后会得出一张结果虚拟表，这张结果表里就有了utdf生成的列，当然原表的列除了utdf消耗的列之外肯定也在都里面。
 
-## 1、split
-由于explode()的输入要求array或map，若原始值为字符串需要先使用split()转换为array  
-<p><strong>语法:</strong> split(string str, string pat) <br /> <strong>返回值:</strong> array <br /> <strong>说明:</strong> 按照pat字符串分割str&#xff0c;会返回分割后的字符串数组 <br /> <strong>举例&#xff1a;</strong> <br /> 1.1.基本用法</p> 
+## 1、split或str_to_map
+由于explode()的输入要求array或map，若原始值为字符串需要先使用split()转换为array、或str_to_map()转为map  
+### 1.1、split
+<p><strong>语法:</strong> split(string str, string pat) <br /> <strong>返回值:</strong> array <br /> <strong>说明:</strong> 按照pat字符串分割str&#xff0c;会返回分割后的字符串数组 <br /> <strong>举例&#xff1a;</strong> <br /> 基本用法</p> 
 <pre class="prettyprint"><code class=" hljs cs">hive&gt; <span class="hljs-keyword">select</span> split(<span class="hljs-string">&#39;abcdef&#39;</span>, <span class="hljs-string">&#39;c&#39;</span>) <span class="hljs-keyword">from</span> test;
 [<span class="hljs-string">&#34;ab&#34;</span>, <span class="hljs-string">&#34;def&#34;</span>]</code></pre> 
 
+### 1.2、str_to_map
+str_to_map() 函数的第一个参数是要转换的字符串，第二个参数是键值对之间的分隔符（在这个例子中是逗号），第三个参数是键值对中键和值之间的分隔符（在这个例子中是冒号）。  
+```
+SELECT str_to_map('{"key1":"value1","key2":"value2"}',',',':') as my_map;
+```
 
 ## 2、explode
 ***hive wiki对于expolde的解释如下：***  
@@ -266,7 +272,8 @@ FROM pageAds  OUTER LATERAL VIEW explode(adid_list) adTable AS ad_id;
 </table>
 
 
-## references
+## references  
+[hive string转map](https://juejin.cn/s/hive%20string%E8%BD%ACmap)  
 [Hive: lateral view 用法](https://www.jianshu.com/p/6098616b0f65)  
 [hive lateral view 与 explode详解](https://blog.csdn.net/bitcarmanlee/article/details/51926530)  
 [Hive Lateral view介绍](https://blog.csdn.net/youziguo/article/details/6837368)  
